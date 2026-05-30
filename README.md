@@ -1,1 +1,1 @@
-# responsive-gallery
+# responsive-gallery this project is about a responsive image gallery where you can add imgages. This gallery is developed using HTML, CSS and Javascript with lightbox effect, navigation buttons, hover effects, image filters, and responsive design.
