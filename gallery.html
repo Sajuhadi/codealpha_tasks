@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial,  sans-serif;
+        }
+
+        body{
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Filter Buttons */
+        .buttons{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .buttons button{
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .buttons button:hover{
+            background: #ff9800;
+        }
+
+        /* Gallery Layout */
+        .gallery{
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit,minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item{
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .gallery-item img{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        /* Hover Effect */
+        .gallery-item:hover img{
+            transform: scale(1.1);
+            filter: brightness(70%);
+        }
+
+        /* Lightbox */
+        .lightbox{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .lightbox img{
+            width: 80%;
+            max-width: 700px;
+            border-radius: 10px;
+        }
+
+
+        .close{
+            position: absolute;
+            top:20px;
+            right: 30px;
+            font-size: 40px;
+            color:white;
+            cursor:pointer;
+        }
+
+        .nav-btn{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: black;
+            padding: 15PX;
+            cursor: pointer;
+            font-size: 20PX;
+            border-radius: 50%;
+        }
+
+        .prev{
+            left: 30px;
+        }
+
+        .next{
+            right: 30px;
+        }
+
+        @media(max-width:600px){
+            .lightbox img{
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Responsive Image Gallery</h1>
+
+    <!-- Filter Buttons -->
+    <div class="buttons">
+        <button
+            onclick="filterImages('all')">All</button>
+        <button
+        onclick="filterImages('nature')">Nature</button>
+        <button
+        onclick="filterImages('city')">City</button>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery">
+        
+        <div class="gallery-item nature">
+            <img
+            src="https://picsum.photos/id/1015/600/400" onclick="openLightbox(0)">
+        </div>
+
+        <div class="gallery-item city">
+            <img
+            src="https://picsum.photos/id/1011/600/400" onclick="openLightbox(1)">
+        </div>
+
+        <div class="gallery-item nature">
+            <img
+            src="https://picsum.photos/id/1016/600/400" onclick="openLightbox(2)">
+        </div>
+
+        <div class="gallery-item city">
+            <img
+            src="https://picsum.photos/id/1020/600/400" onclick="openLightbox(3)">
+        </div>
+
+        <div class="gallery-item nature">
+            <img
+            src="https://picsum.photos/id/1024/600/400" onclick="openLightbox(4)">
+    </div>
+
+    <div class="gallery-item city">
+        <img
+        src="https://picsum.photos/id/1031/600/400" onclick="openLightbox(5)">
+        </div>
+
+        </div>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" id="lightbox">
+
+        <span class="close"
+        onclick="closeLightbox()">&times;</span>
+
+        <button class="nav-btn prev"
+        onclick="changeImage(-1)">&#10094;</button>
+
+        <img id="lightbox-img">
+
+        <button class="nav-btn next"
+        onlclick="changeImage(1)">&#10095;</button>
+        
+    </div>
+
+    <script>
+        const image = [
+            "https://picsum.photos/id/1015/600/400",
+
+            "https://picsum.photos/id/1011/600/400",
+
+            "https://picsum.photos/id/1016/600/400",
+
+            "https://picsum.photos/id/1020/600/400",
+
+            "https://picsum.photos/id/1024/600/400",
+
+            "https://picsum.photos/id/1031/600/400",
+        ];
+
+        let currentIndex = 0;
+
+        function openLightbox(index){
+            currentIndex = index;
+
+            document.getElementById("lightbox").style.display = "flex";
+
+            document.getElementById("lightbox-img").
+            src = images[currentIndex];      
+        }
+
+        function closeLightbox(){
+
+            document.getElementById("lightbox").style.display = "none";
+        }
+
+        function changeImage(direction){
+            currentIndex += direction;
+
+            if(currentIndex < 0){
+                currentIndex = images.length - 
+                1;
+            }
+
+            if(currentIndex >= images.length){
+                currentIndex = 0;
+            }
+
+            document.getElementById("lightbox-img").
+            src = images[currentIndex];
+        }
+
+        // Filter Function
+        function filterImages(category){
+
+            let items =
+            document.querySelectorAll(".gallery-item");
+
+            items.forEach(item => {
+
+                if(category === "all"){
+                    item.style.display = "block";
+                }
+
+                else
+                if(item.classList.contains(category)){
+                    item.style.display = "block";
+                }
+
+                else{
+                    item.style.display = "none";
+                }
+
+            });
+        }
+
+    </script>
+    
+</body>
+</html>
