@@ -1,0 +1,63 @@
+body{
+margin:0;
+font-family:Arial;
+background:#121212;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.app{
+width:350px;
+background:#1e1e1e;
+padding:20px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 0 20px black;
+}
+
+h1{
+font-size:20px;
+}
+
+.card{
+margin:15px 0;
+padding:10px;
+background:#2a2a2a;
+border-radius:10px;
+}
+
+.controls button{
+margin:5px;
+padding:10px;
+border:none;
+border-radius:50%;
+cursor:pointer;
+font-size:18px;
+}
+
+input[type="range"]{
+width:100%;
+}
+
+#list{
+list-style:none;
+padding:0;
+margin-top:10px;
+max-height:150px;
+overflow:auto;
+}
+
+#list li{
+padding:8px;
+background:#2a2a2a;
+margin:5px 0;
+cursor:pointer;
+border-radius:5px;
+}
+
+#list li:hover{
+background:#3a3a3a;
+}
